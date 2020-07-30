@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prueba con Fetch</title>
+    <h1>CLIMA</h1>
+    <link href="estilo.css" rel="stylesheet">
+    <img src="uruguay.jpg"><br><br>
+
+    <script>
+        const url="http://api.openweathermap.org/data/2.5/weather?q=Montevideo,uy&APPID=757b0a42a193f4d1bfa4849ccdd251e0"; 
+        //dirección de la API. Puede ser la ruta a un archivo json. CREA LA TUYA.
+
+        fetch(url) //Realizamos el fetch que devolverá una promesa
+            .then( respuesta=>respuesta.json()) //Obtenemos una promesa que trataremos como json
+            .then(datos=> { //obtenemos una nueva promesa, pero los datos ya están como json.
+                document.getElementById('ciudad').innerHTML= datos.name + ", " + datos.sys.country; //escribo los datos del país
+                document.getElementById('temp').innerHTML=(datos.main.temp -273.15).toFixed(1) + "º";//escribo la temperatura. la convierto de kelvin a celsius
+                document.getElementById('hum').innerHTML= "HUMEDAD";
+                document.getElementById('humidity').innerHTML= datos.main.humidity;
+                document.getElementById('sente').innerHTML= "SENSACIÓN TÉRMICA";
+                document.getElementById('feels_like').innerHTML= (datos.main.feels_like -273.15).toFixed(1) + "º"; //tofixed te dicen los decimales que van despues de la coma
+            })
+            .catch( error => alert("Hubo un error: " + error));
+    </script>
+    
+</head>
+<body>
+    <div>
+        <span id="ciudad"></span><br><br>
+        <span id="temp"> </span><br><br>
+        <span id="hum"></span><br><br>
+        <span id="humidity"></span><br><br>
+        <span id="sente"></span><br><br>
+        <span id="feels_like"></span>
+        
+    </div>
+</body>
+</html>
